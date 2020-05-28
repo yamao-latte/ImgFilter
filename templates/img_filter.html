@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <script type="text/javascript" src="{% static 'manager/js/structure.js' %}"></script>
+
+<link href="{% static 'manager/css/structure.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'startbootstrap-sb-admin-2-gh-pages/css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>畳み込みシミュレータ</title>
+
+</head>
+<body>
+<script type="text/javascript" src="{% static 'startbootstrap-sb-admin-2-gh-pages/js/sb-admin-2.min.js' %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{% static 'manager/js/structure.js' %}"></script>
+
+    <h1>畳み込みアプリ</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>カーネルサイズ(3 or 5)：
+{#        <select name=”kernela” type="number">#}
+{#            <option value=3>3*3</option>#}
+{#            <option value=5>5*5</option></p></select>#}
+        <input name='kernela' type='number' value=3>
+        </p>
+{#    <p>お名前：<input type="text" name="NAME"></p>#}
+{#    <p>メールアドレス：<input type="number" name="email"></p>#}
+    <table>
+        {% for p in kernels %}
+            <tr>
+                {% for p in kernels %}
+                    <td><input name='kernel_num' type='number' value=0></td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+
+        {#        <script language="JavaScript"><!--#}
+{##}
+{#        for (m = 0; m < 5; m++){#}
+{#            document.write(("<tr>"))#}
+{#            for (i = 0; i < 5 ; i++) {#}
+{#                document.write("<td><input name='kernel_num' type='number' value=0></td>");#}
+{#            }#}
+{#            document.write(("</tr>"))#}
+{#        }#}
+{#        // --></script>#}
+
+    </table>
+{#    <p><input id="myImage" type="file" name="s_file" accept="image/*" ></p>#}
+    <img id="preview">
+    {{ form.as_p }}
+{#    <input id="id_docfile" type="file" name="docfile"/>#}
+    <p><input type="submit" value="送信する"></p>
+    <p><input type="reset" value="取消する"></p>
+
+    <textarea id="message" name="message">{{ message }}</textarea>
+  </form>
+  <div>
+{#      <p>{{ obj.description }}</p>#}
+{#      <img src="{{ obj.output.url }}" width="100" height="100">#}
+{#      <p>{{ obj.upload_at }}</p>#}
+
+      <img src="{% static 'media/input.png' %}">
+      <img src="{% static 'media/output.png' %}">
+{#      <textarea id="imgdata" name="imgdata">{{ imgdata }}</textarea>#}
+
+  </div>
+</body>
+</html>

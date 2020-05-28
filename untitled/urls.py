@@ -15,7 +15,32 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
+from django.contrib import admin
+
+from django.conf.urls.static import static
+from django.conf import settings
+
+
+import cms.views as cms_view
+from django.urls import include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('img_filter/', cms_view.ImgFilterView.kernel_cell, 'kernel_cell'),
+
+    url(r'^admin/', admin.site.urls),
+    url(r'^', cms_view.ImgFilterView.as_view()),  # URLとViewを組み合わせる！
+    url(r'^img_filter/', cms_view.ImgFilterView.as_view()),  # URLとViewを組み合わせる！
+    # path('img_filter', cms_view.ImgFilterView.as_view(), name='img_filter')
+
+    # path('success/url/', cms_view.success),
+    # path('file_upload/', include('file_upload.urls')),
+
 ]
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+# ]
