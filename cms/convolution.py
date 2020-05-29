@@ -114,6 +114,84 @@ def convolution_run(srcname, kernel):
     return gray
 
 
+def horizontal_kernel(n) -> np.ndarray:
+    kernel = np.ones([n, n])
+    if n == 3:
+        kernel = np.array([
+            [-3, -10, -3],
+            [0, 0, 0],
+            [3, 10, 3]], np.float32)
+    elif n == 5:
+        kernel = np.array([
+            [5, 5, 5, 5, 5],
+            [3, 3, 3, 3, 3],
+            [0, 0, 0, 0, 0],
+            [-3, -3, -3, -3, -3],
+            [-5, -5, -5, -5, -5]], np.float32)
+
+    return kernel
+
+
+def vertical_kernel(n) -> np.ndarray:
+    kernel = np.ones([n, n])
+    if n == 3:
+        kernel = np.array([
+            [-3, 0, 3],
+            [-10, 0, 10],
+            [-3, 0, 3]], np.float32)
+    elif n == 5:
+        kernel = np.array([
+            [5, 3, 0, -3, -5],
+            [5, 3, 0, -3, -5],
+            [5, 3, 0, -3, -5],
+            [5, 3, 0, -3, -5],
+            [5, 3, 0, -3, -5]], np.float32)
+
+    return kernel
+
+
+def laplacian_kernel(n) -> np.ndarray:
+    kernel = np.ones([n, n])
+    if n == 3:
+        kernel = np.array([
+                             [0, 1, 0],
+                             [1, -4, 1],
+                             [0, 1, 0] ], np.float32)
+    elif n == 5:
+        kernel = np.array([
+                            [-1, -3, -4, -3, -1],
+                            [-3,  0,  6,  0, -3],
+                            [-4,  6, 20,  6, -4],
+                            [-3,  0,  6,  0, -3],
+                            [-1, -3, -4, -3, -1] ], np.float32)
+    return kernel
+
+
+def blur_filter(n) -> np.ndarray:
+    kernel = np.ones([n, n]) / (n * n)
+    return kernel
+
+
+def motion_filter(n) -> np.ndarray:
+    kernel = np.ones([n, n]) / (n * n)
+    if n == 3:
+        kernel = np.array([
+                             [1/3, 0, 0],
+                             [0, 1/3, 0],
+                             [0, 0, 1/3]], np.float32)
+    elif n == 5:
+        kernel = np.array([
+                            [1/5, 0, 0, 0, 0],
+                            [0, 1/5, 0, 0, 0],
+                            [0, 0, 1/5, 0, 0],
+                            [0, 0, 0, 1/5, 0],
+                            [0, 0, 0, 0, 1/5]], np.float32)
+    return kernel
+
+
+def handler(func, *args):
+    return func(*args)
+
 
 def main():
     imgname = "kousi.png"

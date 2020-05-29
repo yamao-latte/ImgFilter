@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cms.apps.CmsConfig',   # cmsアプリケーション
+    'bootstrap4',  # django-bootstrap34
 ]
 
 MIDDLEWARE = [

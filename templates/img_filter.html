@@ -7,6 +7,7 @@
 
 <link href="{% static 'manager/css/structure.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'startbootstrap-sb-admin-2-gh-pages/css/sb-admin-2.min.css' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'cms/css/bootstrap.min.css' %}">
     <meta charset="UTF-8">
     <title>畳み込みシミュレータ</title>
 
@@ -20,13 +21,14 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <p>カーネルサイズ(3 or 5)：
-{#        <select name=”kernela” type="number">#}
-{#            <option value=3>3*3</option>#}
-{#            <option value=5>5*5</option></p></select>#}
-        <input name='kernela' type='number' value=3>
+        {% for field in size_select %}
+            {{ field }}
+        {% endfor %}
+{#        <input name='kernela' type='number' value=3>#}
         </p>
-{#    <p>お名前：<input type="text" name="NAME"></p>#}
-{#    <p>メールアドレス：<input type="number" name="email"></p>#}
+        {% for field in simple_select %}
+            {{ field }}
+        {% endfor %}
     <table>
         {% for p in kernels %}
             <tr>
@@ -36,21 +38,22 @@
             </tr>
         {% endfor %}
 
-        {#        <script language="JavaScript"><!--#}
-{##}
-{#        for (m = 0; m < 5; m++){#}
-{#            document.write(("<tr>"))#}
-{#            for (i = 0; i < 5 ; i++) {#}
-{#                document.write("<td><input name='kernel_num' type='number' value=0></td>");#}
-{#            }#}
-{#            document.write(("</tr>"))#}
-{#        }#}
-{#        // --></script>#}
-
     </table>
 {#    <p><input id="myImage" type="file" name="s_file" accept="image/*" ></p>#}
-    <img id="preview">
+
     {{ form.as_p }}
+    {{ form.media }}
+        <img id="preview">
+    <script>
+function previewImage(obj)
+{
+	var fileReader = new FileReader();
+	fileReader.onload = (function() {
+		document.getElementById('preview').src = fileReader.result;
+	});
+	fileReader.readAsDataURL(obj.files[0]);
+}
+</script>
 {#    <input id="id_docfile" type="file" name="docfile"/>#}
     <p><input type="submit" value="送信する"></p>
     <p><input type="reset" value="取消する"></p>
@@ -62,8 +65,8 @@
 {#      <img src="{{ obj.output.url }}" width="100" height="100">#}
 {#      <p>{{ obj.upload_at }}</p>#}
 
-      <img src="{% static 'media/input.png' %}">
-      <img src="{% static 'media/output.png' %}">
+      <img src="{% static 'media/input.png' %}?{{ date }}">
+      <img src="{% static 'media/output.png' %}?{{ date }}">
 {#      <textarea id="imgdata" name="imgdata">{{ imgdata }}</textarea>#}
 
   </div>
